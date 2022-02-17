@@ -20,9 +20,9 @@ class CreateUsersTable extends Migration
             $table->string('password');
             $table->string('sex');
             $table->string('weight');
-            $table->string('profile');
+            $table->string('profile')->nullable();
             $table->string('birth');
-            $table->string('introduce');
+            $table->string('introduce')->nullable();
             $table->string('location');
             $table->timestamps();
         });
