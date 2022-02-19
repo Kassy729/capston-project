@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CommentController;
 use App\Http\Controllers\FollowsController;
 use App\Http\Controllers\LikeController;
 use App\Http\Controllers\PostController;
@@ -42,4 +43,10 @@ Route::middleware('auth:sanctum')->group(function () {
 
     //게시글 좋아요
     Route::post('/like/{post}', [LikeController::class, 'store']);
+
+    Route::prefix('comment')->group(function () {
+        Route::post('/store/{id}', [CommentController::class, 'store']);
+        Route::get('/index/{id}', [CommentController::class, 'index']);
+        Route::delete('/destroy/{id}', [CommentController::class, 'destroy']);
+    });
 });

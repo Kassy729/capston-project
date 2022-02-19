@@ -29,16 +29,14 @@ class PostController extends Controller
         );
 
         // $fileName = null;
-        // if ($request->hasFile('image')) {
-        //     // dd($request->file('image'));
-        //     $fileName = time() . '_' . $request->file('image')->getClientOriginalName();
-        //     $request->file('image')->storeAs('public/images', $fileName);
-        //     // dd($path);
+        // if ($request->hasFile('img')) {
+        //     //파일명이 겹칠 수도 있기 때문에 앞에 time을 붙여준다
+        //     $fileName = time() . '_' . $request->file('img')->getClientOriginalName();
+        //     $request->file('img')->storeAs('public/images', $fileName);
         // };
 
         // if ($fileName) {
-        //     $input = array_merge($input, ['image' => $fileName]);
-        //     // dd($input);
+        //     $input = array_merge($input, ['img' => $fileName]);
         // }
 
         Post::create($input);
