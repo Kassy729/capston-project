@@ -26,7 +26,8 @@ class User extends Authenticatable
         'profile',
         'birth',
         'introduce',
-        'location'
+        'location',
+        'mmr'
     ];
 
     /**

@@ -24,6 +24,7 @@ class CreateUsersTable extends Migration
             $table->string('birth');
             $table->string('introduce')->nullable();
             $table->string('location');
+            $table->integer('mmr');
             $table->timestamps();
         });
     }

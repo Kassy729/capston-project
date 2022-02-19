@@ -22,7 +22,8 @@ class AuthController extends Controller
             'profile' => $request->input('profile'),
             'birth' => $request->input('birth'),
             'introduce' => $request->input('introduce'),
-            'location' => $request->input('location')
+            'location' => $request->input('location'),
+            'mmr' => 0
         ]);
     }
 

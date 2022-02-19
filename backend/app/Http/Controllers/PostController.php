@@ -13,38 +13,86 @@ class PostController extends Controller
         $this->validate(
             $request,
             [
-                'title' => 'required',
-                'content' => 'required|min:3'
+                'kind' => 'required',
+                'time' => 'required',
+                'calorie' => 'required',
+                'average_speed' => 'required',
+                'altitude' => 'required',
+                'distance' => 'required',
+                'range' => 'required'
             ]
         );
 
-        // dd($request->all());
         $input = array_merge(
             $request->all(),
             ["user_id" => Auth::user()->id]
         );
-        //이미지가 있으면.. $input에 image 항목 추가
 
-        $fileName = null;
-        if ($request->hasFile('image')) {
-            // dd($request->file('image'));
-            $fileName = time() . '_' . $request->file('image')->getClientOriginalName();
-            $request->file('image')->storeAs('public/images', $fileName);
+        // $fileName = null;
+        // if ($request->hasFile('image')) {
+        //     // dd($request->file('image'));
+        //     $fileName = time() . '_' . $request->file('image')->getClientOriginalName();
+        //     $request->file('image')->storeAs('public/images', $fileName);
+        //     // dd($path);
+        // };
 
-            // dd($path);
-        };
+        // if ($fileName) {
+        //     $input = array_merge($input, ['image' => $fileName]);
+        //     // dd($input);
+        // }
 
-        if ($fileName) {
-            $input = array_merge($input, ['image' => $fileName]);
-            // dd($input);
-        }
-
-
-        // user_id 의 내용을 $request 와 함께 합친다
-        // mass assignment
-        // Eloquent model의 white list 인 $fillable에 기술해야 한다.
         Post::create($input);
 
-        return redirect()->route('posts.index')->with('success', 1);
+        return '등록성공';
+    }
+
+    public function index(Request $request)
+    {
+        $range = "private";
+        $user = Auth::user()->id;
+
+        if ($range == 'private') {
+            $posts = Post::where('range', '=', $range)->where('user_id', '=', $user)->paginate(6);
+            return $posts;
+        } else {
+            return Post::all();
+        }
+    }
+
+    public function show($id)
+    {
+        $post = Post::with(['user'])->find($id);
+        return $post;
+    }
+
+    public function update(Request $request, $id)
+    {
+        $this->validate(
+            $request,
+            [
+                // 'kind' => 'required',
+                // 'time' => 'required',
+                // 'calorie' => 'required',
+                // 'average_speed' => 'required',
+                // 'altitude' => 'required',
+                // 'distance' => 'required',
+                'content' => 'required',
+                'range' => 'required',
+            ]
+        );
+
+        $post = Post::find($id);
+        $post->content = $request->content;
+        $post->range = $request->range;
+
+        $post->save();
+        return $post;
+    }
+
+    public function destroy($id)
+    {
+        $post = Post::findOrFail($id);
+        $post->delete();
+        return "삭제성공";
     }
 }

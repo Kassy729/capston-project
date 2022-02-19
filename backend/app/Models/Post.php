@@ -8,4 +8,27 @@ use Illuminate\Database\Eloquent\Model;
 class Post extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        "user_id",
+        "kind",
+        "time",
+        "calorie",
+        "average_speed",
+        "altitude",
+        "distance",
+        "img",
+        "content",
+        "range",
+    ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function likes()
+    {
+        return $this->belongsToMany(User::class, 'likes', 'post_id', 'user_id', 'id', 'id', 'users');  //외래키를 적어야 하지만 관례를 따라서 생략 가능
+    }
 }

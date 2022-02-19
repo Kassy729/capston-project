@@ -19,13 +19,13 @@ class CreatePostsTable extends Migration
                 ->constrained()
                 ->onDelete('cascade');  //같이 삭제 요청
             $table->string('kind');
-            $table->integer('time');
+            $table->string('time');
             $table->integer('calorie');
             $table->string('average_speed');
             $table->string('altitude');
             $table->integer('distance');
-            $table->string('img');
-            $table->string('content');
+            $table->string('img')->nullable();
+            $table->string('content')->nullable();
             $table->string('range');
             $table->timestamps();
         });
