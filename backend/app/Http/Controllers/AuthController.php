@@ -11,6 +11,11 @@ use Symfony\Component\HttpFoundation\Response;
 
 class AuthController extends Controller
 {
+    public function test(Request $request)
+    {
+        return $request;
+    }
+
     public function register(Request $request)
     {
         return User::create([
