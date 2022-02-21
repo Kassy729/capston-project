@@ -10,7 +10,8 @@ class PostController extends Controller
 {
     public function store(Request $request)
     {
-        return 1;
+        dd($request);
+        return $request;
         $this->validate(
             $request,
             [
