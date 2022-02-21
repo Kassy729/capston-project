@@ -26,20 +26,22 @@ Route::post('/test', [AuthController::class, 'test']);
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
 
+// 운동기록 업로드
+Route::prefix('post')->group(function () {
+    Route::post('/store', [PostController::class, 'store']);
+    Route::post('/index', [PostController::class, 'index']);
+    Route::get('/show/{id}', [PostController::class, 'show']);
+    Route::put('/update/{id}', [PostController::class, "update"]);
+    Route::delete('/{id}', [PostController::class, "destroy"]);
+});
+
 //현재로그인 확인
 Route::middleware('auth:sanctum')->group(function () {
     //유저확인, 로그아웃
     Route::get('user', [AuthController::class, 'user']);
     Route::post('logout', [AuthController::class, 'logout']);
 
-    // 운동기록 업로드
-    Route::prefix('post')->group(function () {
-        Route::post('/store', [PostController::class, 'store']);
-        Route::post('/index', [PostController::class, 'index']);
-        Route::get('/show/{id}', [PostController::class, 'show']);
-        Route::put('/update/{id}', [PostController::class, "update"]);
-        Route::delete('/{id}', [PostController::class, "destroy"]);
-    });
+
 
     // 팔로우
     Route::post('/follow/{user}', [FollowsController::class, 'store']);
