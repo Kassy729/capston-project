@@ -11,7 +11,7 @@ class Post extends Model
 
     protected $fillable = [
         "user_id",
-        "kind",
+        "event",
         "time",
         "calorie",
         "average_speed",
@@ -20,6 +20,9 @@ class Post extends Model
         "img",
         "content",
         "range",
+        "track_id",
+        "gps_id",
+        "mmr"
     ];
 
     public function user()

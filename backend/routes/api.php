@@ -4,6 +4,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\FollowsController;
 use App\Http\Controllers\LikeController;
+use App\Http\Controllers\MMRController;
 use App\Http\Controllers\PostController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -19,21 +20,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-//테스트
-Route::post('/test', [AuthController::class, 'test']);
 
 //로그인, 회원가입
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
 
-// 운동기록 업로드
-Route::prefix('post')->group(function () {
-    Route::post('/store', [PostController::class, 'store']);
-    Route::post('/index', [PostController::class, 'index']);
-    Route::get('/show/{id}', [PostController::class, 'show']);
-    Route::put('/update/{id}', [PostController::class, "update"]);
-    Route::delete('/{id}', [PostController::class, "destroy"]);
-});
+
 
 //현재로그인 확인
 Route::middleware('auth:sanctum')->group(function () {
@@ -41,7 +33,14 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('user', [AuthController::class, 'user']);
     Route::post('logout', [AuthController::class, 'logout']);
 
-
+    // 운동기록 업로드
+    Route::prefix('post')->group(function () {
+        Route::post('/store', [PostController::class, 'store']);
+        Route::post('/index', [PostController::class, 'index']);
+        Route::get('/show/{id}', [PostController::class, 'show']);
+        Route::put('/update/{id}', [PostController::class, "update"]);
+        Route::delete('/{id}', [PostController::class, "destroy"]);
+    });
 
     // 팔로우
     Route::post('/follow/{user}', [FollowsController::class, 'store']);
@@ -49,9 +48,13 @@ Route::middleware('auth:sanctum')->group(function () {
     //게시글 좋아요
     Route::post('/like/{post}', [LikeController::class, 'store']);
 
+    //댓글
     Route::prefix('comment')->group(function () {
         Route::post('/store/{id}', [CommentController::class, 'store']);
         Route::get('/index/{id}', [CommentController::class, 'index']);
         Route::delete('/destroy/{id}', [CommentController::class, 'destroy']);
     });
+
+    //mmr
+    Route::post('/match', [MMRController::class, 'match']);
 });

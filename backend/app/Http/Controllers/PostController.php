@@ -11,23 +11,26 @@ class PostController extends Controller
     public function store(Request $request)
     {
         // error_log('Some');
-        return $request;
         $this->validate(
             $request,
             [
-                'kind' => 'required',
+                'event' => 'required',
                 'time' => 'required',
                 'calorie' => 'required',
                 'average_speed' => 'required',
                 'altitude' => 'required',
                 'distance' => 'required',
-                'range' => 'required'
+                'range' => 'required',
+                'track_id' => 'required',
+                'gps_id' => 'required',
             ]
         );
 
         $input = array_merge(
             $request->all(),
-            ["user_id" => Auth::user()->id]
+            ["user_id" => Auth::user()->id],
+            ["mmr" => Auth::user()->mmr]
+
         );
 
         // $fileName = null;
@@ -50,6 +53,9 @@ class PostController extends Controller
     {
         $range = "private";
         $user = Auth::user()->id;
+
+        $posts = Post::where('range', '=', $range)->where('user_id', '=', $user)->paginate(5);
+        return $posts;
 
         if ($range == 'private') {
             $posts = Post::where('range', '=', $range)->where('user_id', '=', $user)->paginate(6);

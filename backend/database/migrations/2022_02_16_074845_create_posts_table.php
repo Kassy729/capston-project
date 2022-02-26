@@ -18,7 +18,7 @@ class CreatePostsTable extends Migration
             $table->foreignID('user_id')  //Users의 user_id를 참조한다
                 ->constrained()
                 ->onDelete('cascade');  //같이 삭제 요청
-            $table->string('kind');
+            $table->string('event');
             $table->integer('time');
             $table->float('calorie');
             $table->float('average_speed');
@@ -27,6 +27,9 @@ class CreatePostsTable extends Migration
             $table->string('img')->nullable();
             $table->string('content')->nullable();
             $table->string('range');
+            $table->string('track_id');
+            $table->string('gps_id');
+            $table->integer('mmr');
             $table->timestamps();
         });
     }
