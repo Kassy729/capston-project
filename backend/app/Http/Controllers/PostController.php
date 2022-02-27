@@ -30,7 +30,6 @@ class PostController extends Controller
             $request->all(),
             ["user_id" => Auth::user()->id],
             ["mmr" => Auth::user()->mmr]
-
         );
 
         // $fileName = null;

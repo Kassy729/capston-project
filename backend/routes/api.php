@@ -6,6 +6,8 @@ use App\Http\Controllers\FollowsController;
 use App\Http\Controllers\LikeController;
 use App\Http\Controllers\MMRController;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\RecordController;
+use App\Models\Record;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -56,5 +58,12 @@ Route::middleware('auth:sanctum')->group(function () {
     });
 
     //mmr
-    Route::post('/match', [MMRController::class, 'match']);
+    Route::post('/friendly_match', [MMRController::class, 'friendly_match']);
+    Route::post('/rank_match', [MMRController::class, 'rank_match']);
+
+    //전적 기록저장, 불러오기
+    Route::prefix('/record')->group(function () {
+        Route::post('/store', [RecordController::class, 'store']);
+        Route::get('/index/{id}', [RecordController::class, 'index']);
+    });
 });

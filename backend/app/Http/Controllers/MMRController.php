@@ -11,7 +11,25 @@ use Illuminate\Support\Facades\Redis;
 
 class MMRController extends Controller
 {
-    public function match(Request $request)
+    public function friendly_match(Request $request)
+    {
+        //랜덤매칭 함수를 호출
+        return $this->random_match($request);
+    }
+
+
+    public function rank_match(Request $request)
+    {
+        //랜덤매칭 함수를 호출
+        return $this->random_match($request);
+    }
+
+
+
+
+
+    //mmr이 비슷한 사람과 매칭 시키는 함수
+    protected function random_match($request)
     {
         $track_id = $request->track_id;
         $user_mmr = Auth::user()->mmr;
@@ -34,6 +52,7 @@ class MMRController extends Controller
         $random = array_rand($matching_user);
         $random_matching_user = $matching_user[$random];
 
+        //이거를 이제 mongoDB에 보내서 요청
         return $random_matching_user;
     }
 }
