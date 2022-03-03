@@ -13,6 +13,7 @@ class Post extends Model
         "user_id",
         "event",
         "time",
+        "title",
         "calorie",
         "average_speed",
         "altitude",

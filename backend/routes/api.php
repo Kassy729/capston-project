@@ -23,6 +23,8 @@ use Illuminate\Support\Facades\Route;
 */
 
 
+
+
 //로그인, 회원가입
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
@@ -58,12 +60,11 @@ Route::middleware('auth:sanctum')->group(function () {
     });
 
     //mmr
-    Route::post('/friendly_match', [MMRController::class, 'friendly_match']);
-    Route::post('/rank_match', [MMRController::class, 'rank_match']);
+    Route::post('/match', [MMRController::class, 'match']);
 
     //전적 기록저장, 불러오기
     Route::prefix('/record')->group(function () {
-        Route::post('/store', [RecordController::class, 'store']);
-        Route::get('/index/{id}', [RecordController::class, 'index']);
+        Route::get('/store', [RecordController::class, 'store'])->name('record.store');
+        Route::get('/index/{id}', [RecordController::class, 'index'])->name('record.index');
     });
 });

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Image;
 use App\Models\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -10,7 +11,6 @@ class PostController extends Controller
 {
     public function store(Request $request)
     {
-        // error_log('Some');
         $this->validate(
             $request,
             [
@@ -23,6 +23,8 @@ class PostController extends Controller
                 'range' => 'required',
                 'track_id' => 'required',
                 'gps_id' => 'required',
+                'win_user_id' => 'required',
+                'loss_user_id' => 'required'
             ]
         );
 
@@ -31,26 +33,31 @@ class PostController extends Controller
             ["user_id" => Auth::user()->id],
             ["mmr" => Auth::user()->mmr]
         );
+        $post = Post::create($input);
 
-        // $fileName = null;
-        // if ($request->hasFile('img')) {
-        //     //파일명이 겹칠 수도 있기 때문에 앞에 time을 붙여준다
-        //     $fileName = time() . '_' . $request->file('img')->getClientOriginalName();
-        //     $request->file('img')->storeAs('public/images', $fileName);
-        // };
+        if ($request->hasFile("image")) {
+            $files = $request->file("images");
+            foreach ($files as $file) {
+                $imageName = time() . '_' . $file->getClientOriginalName();
+                $request['post_id'] = $post->id;
+                $request['image'] = $imageName;
+                $file->move(\public_path("/images"), $imageName);
+                Image::create($request->all());
+            }
+        }
 
-        // if ($fileName) {
-        //     $input = array_merge($input, ['img' => $fileName]);
-        // }
-
-        Post::create($input);
-
-        return '등록성공';
+        return redirect()->route('record.store', [
+            'win_user_id' => $request->win_user_id,
+            'loss_user_id' => $request->loss_user_id,
+            'kind' => $request->kind,
+            'post_id' => $post->id,
+            'track_id' => $post->track_id
+        ]);
     }
 
     public function index(Request $request)
     {
-        $range = "private";
+        $range = "public";
         $user = Auth::user()->id;
 
         $posts = Post::where('range', '=', $range)->where('user_id', '=', $user)->paginate(5);

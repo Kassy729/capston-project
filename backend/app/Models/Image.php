@@ -5,25 +5,16 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Record extends Model
+class Image extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-        "user_id",
         "post_id",
-        "track_id",
-        "win_user_id",
-        "loss_user_id",
-        "kind"
+        "image"
     ];
 
-    public function user()
-    {
-        return $this->belongsTo(User::class);
-    }
-
-    public function post()
+    public function posts()
     {
         return $this->belongsTo(Post::class);
     }

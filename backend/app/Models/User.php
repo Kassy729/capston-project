@@ -27,10 +27,7 @@ class User extends Authenticatable
         'birth',
         'introduce',
         'location',
-        'mmr',
-        'win',
-        'loss',
-        'percentage'
+        'mmr'
     ];
 
     /**

@@ -18,13 +18,13 @@ class RecordController extends Controller
             [
                 'win_user_id' => 'required',
                 'loss_user_id' => 'required',
-                'win_user_time' => 'required',
-                'loss_user_time' => 'required',
             ]
         );
 
         //mmr상승 함수
-        $this->mmr_point($request);
+        if ($request->kind == "랭크") {
+            $this->mmr_point($request);
+        }
 
         $input = array_merge(
             $request->all(),
@@ -36,11 +36,14 @@ class RecordController extends Controller
         return "기록성공";
     }
 
+
     //전적 불러오기
     public function index($id)
     {
         return Record::where('user_id', '=', $id)->get();
     }
+
+
 
     //mmr상승 함수
     protected function mmr_point($request)

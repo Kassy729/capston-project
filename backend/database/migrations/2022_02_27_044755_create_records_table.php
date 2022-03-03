@@ -16,11 +16,11 @@ class CreateRecordsTable extends Migration
         Schema::create('records', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreignId('post_id')->references('id')->on('posts')->onDelete('cascade');
             $table->integer('track_id');
             $table->integer('win_user_id');
-            $table->integer('win_user_time');
             $table->integer('loss_user_id');
-            $table->integer('loss_user_time');
+            $table->string('kind');
             $table->timestamps();
         });
     }

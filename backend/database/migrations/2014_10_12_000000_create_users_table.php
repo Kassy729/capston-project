@@ -25,9 +25,6 @@ class CreateUsersTable extends Migration
             $table->string('introduce')->nullable();
             $table->string('location');
             $table->integer('mmr');
-            $table->integer('win');
-            $table->integer('loss');
-            $table->float('percentage');
             $table->timestamps();
         });
     }
