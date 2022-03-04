@@ -25,7 +25,7 @@ class CommentController extends Controller
     public function index($id)
     {
         $comments = Comment::orderby('created_at', 'desc')->where('post_id', $id)->with('user')->get();
-        return $comments;
+        return $comments;   
     }
 
     public function destroy($id)
