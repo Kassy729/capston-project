@@ -41,6 +41,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::prefix('post')->group(function () {
         Route::post('/store', [PostController::class, 'store']);
         Route::post('/index', [PostController::class, 'index']);
+        Route::post('/myIndex', [PostController::class, 'myIndex']);
         Route::get('/show/{id}', [PostController::class, 'show']);
         Route::put('/update/{id}', [PostController::class, "update"]);
         Route::delete('/{id}', [PostController::class, "destroy"]);
@@ -48,6 +49,8 @@ Route::middleware('auth:sanctum')->group(function () {
 
     // 팔로우
     Route::post('/follow/{user}', [FollowsController::class, 'store']);
+    Route::get('/follow', [FollowsController::class, 'index']);
+
 
     //게시글 좋아요
     Route::post('/like/{post}', [LikeController::class, 'store']);

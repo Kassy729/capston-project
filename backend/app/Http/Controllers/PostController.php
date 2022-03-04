@@ -55,19 +55,24 @@ class PostController extends Controller
         ]);
     }
 
-    public function index(Request $request)
+    //사람들 활동 내역 보기
+    public function index()
     {
-        $range = "public";
+        return Post::orderby('created_at', 'desc')->where('range', '=', 'public')->paginate(5);
+    }
+
+    //내 활동내역 보기
+    public function myIndex(Request $request)
+    {
+        $range = $request->range;
         $user = Auth::user()->id;
 
-        $posts = Post::where('range', '=', $range)->where('user_id', '=', $user)->paginate(5);
-        return $posts;
-
         if ($range == 'private') {
-            $posts = Post::where('range', '=', $range)->where('user_id', '=', $user)->paginate(6);
-            return $posts;
+            return Post::orderby('created_at', 'desc')->where('user_id', '=', $user)->where('range', '=', 'private')->pagination(6);
+        } else if ($range == 'public') {
+            return Post::orderby('created_at', 'desc')->where('user_id', '=', $user)->where('range', '=', 'public')->pagination(6);
         } else {
-            return Post::all();
+            return Post::orderby('created_at', 'desc')->where('user_id', '=', $user)->pagination(6);
         }
     }
 
@@ -82,12 +87,6 @@ class PostController extends Controller
         $this->validate(
             $request,
             [
-                // 'kind' => 'required',
-                // 'time' => 'required',
-                // 'calorie' => 'required',
-                // 'average_speed' => 'required',
-                // 'altitude' => 'required',
-                // 'distance' => 'required',
                 'content' => 'required',
                 'range' => 'required',
             ]

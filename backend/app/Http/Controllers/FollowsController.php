@@ -15,4 +15,11 @@ class FollowsController extends Controller
         $user_id = Auth::user()->getAttribute('id');
         return $user->followers()->toggle($user_id);
     }
+
+    public function index()
+    {
+        $user_id = Auth::user()->getAttribute('id');
+        $follow = User::with(['following', 'followers'])->find($user_id);
+        return $follow;
+    }
 }
