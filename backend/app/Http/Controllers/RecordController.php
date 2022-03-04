@@ -37,10 +37,17 @@ class RecordController extends Controller
     }
 
 
-    //전적 불러오기
+    //내 기록 불러오기
+    public function myIndex()
+    {
+        $id = Auth::user()->getAttribute('id');
+        return Record::orderby('created_at', 'desc')->where('user_id', '=', $id)->get();
+    }
+
+    //상대 기록 불러오기
     public function index($id)
     {
-        return Record::where('user_id', '=', $id)->get();
+        return Record::orderby('created_at', 'desc')->where('user_id', '=', $id)->get();
     }
 
 
