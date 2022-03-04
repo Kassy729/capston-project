@@ -51,7 +51,9 @@ class AuthController extends Controller
 
     public function user()
     {
-        return Auth::user();
+        $id = Auth::user()->getAttribute('id');
+        $user = User::with(['following', 'followers'])->find($id);
+        return $user;
     }
 
     public function logout()
