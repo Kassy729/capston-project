@@ -69,5 +69,6 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::prefix('/record')->group(function () {
         Route::get('/store', [RecordController::class, 'store'])->name('record.store');
         Route::get('/index/{id}', [RecordController::class, 'index'])->name('record.index');
+        Route::get('/myIndex', [RecordController::class, 'myIndex'])->name('record.myIndex');
     });
 });
