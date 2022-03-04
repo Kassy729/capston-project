@@ -51,7 +51,8 @@ class PostController extends Controller
             'loss_user_id' => $request->loss_user_id,
             'kind' => $request->kind,
             'post_id' => $post->id,
-            'track_id' => $post->track_id
+            'track_id' => $post->track_id,
+            'event' => $post->event
         ]);
     }
 

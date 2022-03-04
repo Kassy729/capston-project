@@ -25,9 +25,10 @@ class MMRController extends Controller
         $track_id = $request->track_id;
         $user_mmr = Auth::user()->mmr;
         $user_id = Auth::user()->id;
+        $event = $request->event;
 
         //트랙아이디를 받아와서 해당 트랙을 달린 유저중 mmr이 비슷한 사람(mmr +10 or -10)을 탐색
-        $posts = Post::where('track_id', '=', $track_id)->where('user_id', '!=', $user_id)->where('mmr', '<=', $user_mmr + 10)->where('mmr', '>=', $user_mmr - 10)->get();
+        $posts = Post::where('event', '=', $event)->where('track_id', '=', $track_id)->where('user_id', '!=', $user_id)->where('mmr', '<=', $user_mmr + 10)->where('mmr', '>=', $user_mmr - 10)->get();
 
         //배열의 길이
         $array_length = count($posts);
