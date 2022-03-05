@@ -59,7 +59,7 @@ class PostController extends Controller
     //사람들 활동 내역 보기
     public function index()
     {
-        return Post::orderby('created_at', 'desc')->where('range', '=', 'public')->paginate(5);
+        return Post::orderby('created_at', 'desc')->where('range', '=', 'public')->with('user')->paginate(5);
     }
 
     //내 활동내역 보기
@@ -79,7 +79,7 @@ class PostController extends Controller
 
     public function show($id)
     {
-        $post = Post::with(['user', 'likes'])->find($id);
+        $post = Post::with(['user', 'likes', ''])->find($id);
         return $post;
     }
 
