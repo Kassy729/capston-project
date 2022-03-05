@@ -56,9 +56,10 @@ class PostController extends Controller
         ]);
     }
 
-    //사람들 활동 내역 보기
+    //팔로우한 사람들 활동 내역 시간별로 보기
     public function index()
     {
+        $id = Auth::user()->getAttribute('id');
         return Post::orderby('created_at', 'desc')->where('range', '=', 'public')->with('user')->get();
     }
 
