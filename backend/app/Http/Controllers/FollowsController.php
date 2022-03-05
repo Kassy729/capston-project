@@ -13,13 +13,7 @@ class FollowsController extends Controller
     {
         //현재 로그인한 유저의 id
         $user_id = Auth::user()->getAttribute('id');
-        return $user->followers()->toggle($user_id);
-    }
-
-    public function index()
-    {
-        $user_id = Auth::user()->getAttribute('id');
-        $follow = User::with(['following', 'followers'])->find($user_id);
-        return $follow;
+        $user->followers()->toggle($user_id);
+        return "success";
     }
 }

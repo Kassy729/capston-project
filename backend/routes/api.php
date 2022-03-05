@@ -49,7 +49,6 @@ Route::middleware('auth:sanctum')->group(function () {
 
     // 팔로우
     Route::post('/follow/{user}', [FollowsController::class, 'store']);
-    Route::get('/follow', [FollowsController::class, 'index']);
 
 
     //게시글 좋아요
