@@ -30,6 +30,8 @@ Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
 
 Route::post('/index', [PostController::class, 'index']);
+Route::post('/follow/{user}', [FollowsController::class, 'store']);
+
 
 
 //현재로그인 확인
@@ -48,7 +50,6 @@ Route::middleware('auth:sanctum')->group(function () {
     });
 
     // 팔로우
-    Route::post('/follow/{user}', [FollowsController::class, 'store']);
 
 
     //게시글 좋아요
