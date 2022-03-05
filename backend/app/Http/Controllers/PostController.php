@@ -59,7 +59,7 @@ class PostController extends Controller
     //사람들 활동 내역 보기
     public function index()
     {
-        return Post::orderby('created_at', 'desc')->where('range', '=', 'public')->with('user')->paginate(5);
+        return Post::orderby('created_at', 'desc')->where('range', '=', 'public')->with('user')->get();
     }
 
     //내 활동내역 보기
