@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Follow;
 use App\Models\Image;
 use App\Models\Post;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class PostController extends Controller
 {
@@ -59,7 +62,21 @@ class PostController extends Controller
     //팔로우한 사람들 활동 내역 시간별로 보기
     public function index()
     {
-        return Post::orderby('created_at', 'desc')->where('range', '=', 'public')->with('user')->get();
+        //팔로워들 id가져오기
+        //where절 걸어서 팔로워들의 id의 post만 가져오기
+        $id = Auth::user()->id;
+        $followings = Follow::where('follower_id', '=', $id)->get('following_id');
+        $array_length = count($followings);
+        $array = array();
+        array_push($array, $id);
+
+        //배열에 팔로잉한 아이디 push
+        for ($i = 0; $i < $array_length; $i++) {
+            array_push($array, $followings[$i]->following_id);
+        }
+
+        //팔로잉한 아이디의 포스트만 시간별로 출력
+        return Post::whereIn('user_id', $array)->where('range', 'public')->orderby('created_at', 'desc')->get();
     }
 
     //내 활동내역 보기

@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\Hash;
+use phpDocumentor\Reflection\Types\Boolean;
 use Symfony\Component\HttpFoundation\Response;
 
 class AuthController extends Controller
@@ -38,24 +39,31 @@ class AuthController extends Controller
             ], Response::HTTP_UNAUTHORIZED);
         }
 
-        $user = Auth::user();
+        $login_user = Auth::user();
 
-        $token = $user->createToken('token')->plainTextToken;
-
+        $token = $login_user->createToken('token')->plainTextToken;
         $cookie = cookie('jwt', $token, 60 * 24); // 1 day
 
+        $user = User::with(['followings', 'followers', 'posts'])->find($login_user->id);
+        // $user = User::with(['followings'])->find($id);
+
         return response([
-            'message' => $token
+            'message' => $token,
+            'user' => $user
         ])->withCookie($cookie);
     }
 
     public function user()
     {
-        $id = Auth::user()->getAttribute('id');
-        $user = User::with(['followings', 'followers', 'posts'])->find($id);
-        // $user = User::with(['followings'])->find($id);
-        return $user;
-        $user = User::with(['followings'])->get('following_id')->find($id);
+        if (Auth::user()) {
+            return true;
+        } else {
+            return;
+        }
+        // $id = Auth::user()->getAttribute('id');
+        // $user = User::with(['followings', 'followers', 'posts'])->find($id);
+        // // $user = User::with(['followings'])->find($id);
+        // return $user;
     }
 
     public function logout()

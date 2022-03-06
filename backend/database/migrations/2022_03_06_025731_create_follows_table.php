@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateUserToUserPivotTable extends Migration
+class CreateFollowsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateUserToUserPivotTable extends Migration
      */
     public function up()
     {
-        Schema::create('follows_test', function (Blueprint $table) {
+        Schema::create('follows', function (Blueprint $table) {
             $table->id();
             $table->foreignId('follower_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreignId('following_id')->references('id')->on('users')->onDelete('cascade');
