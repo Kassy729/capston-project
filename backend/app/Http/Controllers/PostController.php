@@ -76,7 +76,7 @@ class PostController extends Controller
         }
 
         //팔로잉한 아이디의 포스트만 시간별로 출력
-        return Post::whereIn('user_id', $array)->where('range', 'public')->orderby('created_at', 'desc')->get();
+        return Post::with(['user', 'likes'])->whereIn('user_id', $array)->where('range', 'public')->orderby('created_at', 'desc')->get();
     }
 
     //내 활동내역 보기
