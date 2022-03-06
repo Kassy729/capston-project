@@ -40,6 +40,7 @@ class AuthController extends Controller
         }
 
         $login_user = Auth::user();
+        //
 
         $token = $login_user->createToken('token')->plainTextToken;
         $cookie = cookie('jwt', $token, 60 * 24); // 1 day
