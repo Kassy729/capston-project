@@ -155,8 +155,9 @@ return [
     |
     */
 
-    'domain' => env('SESSION_DOMAIN', null),
-    // 'domain' => $_SERVER[''],
+    // 'domain' => env('SESSION_DOMAIN', null),
+    // 'domain' => $_SERVER['3.35.239.14'],
+    'domain' => '.3.35.239.14',
 
     /*
     |--------------------------------------------------------------------------
