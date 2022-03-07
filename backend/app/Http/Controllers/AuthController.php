@@ -46,9 +46,6 @@ class AuthController extends Controller
         $cookie = cookie('jwt', $token, 60 * 24, '3.35.239.14'); // 1 day
 
 
-        출처:
-        https: //dololak.tistory.com/543 [코끼리를 냉장고에 넣는 방법]
-
         $user = User::with(['followings', 'followers', 'posts'])->find($login_user->id);
 
         return response([
