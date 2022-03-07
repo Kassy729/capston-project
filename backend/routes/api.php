@@ -29,6 +29,8 @@ use Illuminate\Support\Facades\Route;
 //로그인, 회원가입
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
+Route::get('/test', [AuthController::class, 'test']);
+
 Route::get('/auth/login/google', [GoogleAuthController::class, 'redirect']);
 Route::get('/auth/login/google/callback', [GoogleAuthController::class, 'callback']);
 

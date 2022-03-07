@@ -13,6 +13,11 @@ use Symfony\Component\HttpFoundation\Response;
 
 class AuthController extends Controller
 {
+    public function test()
+    {
+        return 1;
+    }
+
     public function register(Request $request)
     {
         return User::create([
@@ -43,7 +48,7 @@ class AuthController extends Controller
         $login_user = Auth::user();
 
         $token = $login_user->createToken('token')->plainTextToken;
-        $cookie = cookie('jwt', $token, 60 * 24, "", "http://2yubi.tk/"); // 1 day
+        $cookie = cookie('jwt', $token, 60 * 24, "", "http://localhost"); // 1 day
 
 
         $user = User::with(['followings', 'followers', 'posts'])->find($login_user->id);
