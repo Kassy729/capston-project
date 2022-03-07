@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\Hash;
 use phpDocumentor\Reflection\Types\Boolean;
+use PhpOption\None;
 use Symfony\Component\HttpFoundation\Response;
 
 class AuthController extends Controller
@@ -43,7 +44,7 @@ class AuthController extends Controller
         //
 
         $token = $login_user->createToken('token')->plainTextToken;
-        $cookie = cookie('jwt', $token, 60 * 24, '3.35.239.14'); // 1 day
+        $cookie = cookie('jwt', $token, 60 * 24, null, '3.35.239.14', true, true, null); // 1 day
 
 
         $user = User::with(['followings', 'followers', 'posts'])->find($login_user->id);
