@@ -3,6 +3,7 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\FollowsController;
+use App\Http\Controllers\GoogleAuthController;
 use App\Http\Controllers\LikeController;
 use App\Http\Controllers\MMRController;
 use App\Http\Controllers\PostController;
@@ -28,6 +29,8 @@ use Illuminate\Support\Facades\Route;
 //로그인, 회원가입
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
+Route::get('/auth/login/google', [GoogleAuthController::class, 'redirect']);
+Route::get('/auth/login/google/callback', [GoogleAuthController::class, 'callback']);
 
 
 //현재로그인 확인
