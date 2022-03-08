@@ -155,8 +155,8 @@ return [
     |
     */
 
-    // 'domain' => env('SESSION_DOMAIN', null),
-    'domain' => $_SERVER['3.35.239.14'],
+    'domain' => env('SESSION_DOMAIN', null),
+    // 'domain' => $_SERVER['3.35.239.14'],
     // 'domain' => '.3.35.239.14',
 
     /*
@@ -170,7 +170,7 @@ return [
     |
     */
 
-    'secure' => env('SESSION_SECURE_COOKIE', true),
+    'secure' => env('SESSION_SECURE_COOKIE'),
 
     /*
     |--------------------------------------------------------------------------
