@@ -45,7 +45,7 @@ Route::middleware('auth:sanctum')->group(function () {
     // 운동기록 업로드
     Route::prefix('post')->group(function () {
         Route::post('/store', [PostController::class, 'store']);
-        Route::post('/index', [PostController::class, 'index']);
+        Route::get('/index', [PostController::class, 'index']);
         Route::post('/myIndex', [PostController::class, 'myIndex']);
         Route::get('/show/{id}', [PostController::class, 'show']);
         Route::put('/update/{id}', [PostController::class, "update"]);
