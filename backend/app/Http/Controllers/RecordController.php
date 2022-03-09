@@ -41,13 +41,13 @@ class RecordController extends Controller
     public function myIndex()
     {
         $id = Auth::user()->getAttribute('id');
-        return Record::orderby('created_at', 'desc')->where('user_id', '=', $id)->pagination(10);
+        return Record::orderby('created_at', 'desc')->where('user_id', '=', $id)->paginate(10);
     }
 
     //상대 기록 불러오기
     public function index($id)
     {
-        return Record::orderby('created_at', 'desc')->where('user_id', '=', $id)->pagination(10);
+        return Record::orderby('created_at', 'desc')->where('user_id', '=', $id)->paginate(10);
     }
 
 
