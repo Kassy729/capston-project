@@ -25,13 +25,22 @@ class CommentController extends Controller
     public function index($id)
     {
         $comments = Comment::orderby('created_at', 'desc')->where('post_id', $id)->with('user')->get();
-        return $comments;   
+        return $comments;
     }
 
     public function destroy($id)
     {
+
+        $user = Auth::user()->id;
         $comment = Comment::find($id);
-        $comment->delete();
-        return "댓글 삭제 성공";
+
+        $user_id = $comment->user_id;
+
+        if ($user == $user_id) {
+            $comment->delete();
+            return "댓글 삭제 성공";
+        } else {
+            return abort(401);
+        }
     }
 }

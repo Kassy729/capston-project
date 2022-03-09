@@ -105,17 +105,30 @@ class PostController extends Controller
         );
 
         $post = Post::find($id);
-        $post->content = $request->content;
-        $post->range = $request->range;
+        $user = Auth::user()->id;
+        $user_id = $post->user_id;
 
-        $post->save();
-        return $post;
+        if ($user == $user_id) {
+            $post->content = $request->content;
+            $post->range = $request->range;
+            $post->save();
+            return "수정완료";
+        } else {
+            return abort(401);
+        }
     }
 
     public function destroy($id)
     {
         $post = Post::findOrFail($id);
-        $post->delete();
-        return "삭제성공";
+        $user = Auth::user()->id;
+        $user_id = $post->user_id;
+
+        if ($user == $user_id) {
+            $post->delete();
+            return "삭제성공";
+        } else {
+            return abort(401);
+        }
     }
 }
