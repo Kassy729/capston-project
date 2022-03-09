@@ -84,21 +84,15 @@ class PostController extends Controller
     {
         $range = $request->range;
         $user = Auth::user()->id;
-
         if ($range == 'private') {
-            return Post::orderby('created_at', 'desc')->where('user_id', '=', $user)->where('range', '=', 'private')->pagination(6);
+            return Post::orderby('created_at', 'desc')->where('user_id', '=', $user)->where('range', '=', 'private')->paginate(6);
         } else if ($range == 'public') {
-            return Post::orderby('created_at', 'desc')->where('user_id', '=', $user)->where('range', '=', 'public')->pagination(6);
+            return Post::orderby('created_at', 'desc')->where('user_id', '=', $user)->where('range', '=', 'public')->paginate(6);
         } else {
-            return Post::orderby('created_at', 'desc')->where('user_id', '=', $user)->pagination(6);
+            return Post::orderby('created_at', 'desc')->where('user_id', '=', $user)->paginate(6);
         }
     }
 
-    public function show($id)
-    {
-        $post = Post::with(['user', 'likes', ''])->find($id);
-        return $post;
-    }
 
     public function update(Request $request, $id)
     {
