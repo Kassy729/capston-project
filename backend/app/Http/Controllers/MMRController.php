@@ -12,10 +12,19 @@ use Illuminate\Support\Facades\Redis;
 
 class MMRController extends Controller
 {
-    public function match(Request $request)
+    public function rank(Request $request)
     {
         //랜덤매칭 함수를 호출
         return $this->random_match($request);
+    }
+
+    public function friendly(Request $request)
+    {
+        $track_id = $request->track_id;
+        $user_id = $request->user_id;
+
+        $gps_id = Post::where('track_id', '=', $track_id)->where('user_id', '=', $user_id)->get('gps_id');
+        return $gps_id; //이걸 node서버에 보내서 gps_data요청
     }
 
 

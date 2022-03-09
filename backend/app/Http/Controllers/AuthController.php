@@ -61,16 +61,11 @@ class AuthController extends Controller
 
     public function user()
     {
-        // if (Auth::user()) {
-        //     return true;
-        // } else {
-        //     return;
-        // }
-        return Auth::user();
-        // $id = Auth::user()->getAttribute('id');
-        // $user = User::with(['followings', 'followers', 'posts'])->find($id);
-        // // $user = User::with(['followings'])->find($id);
-        // return $user;
+        if (Auth::user()) {
+            return true;
+        } else {
+            return;
+        }
     }
 
     public function logout()

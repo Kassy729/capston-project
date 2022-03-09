@@ -7,6 +7,7 @@ use App\Http\Controllers\GoogleAuthController;
 use App\Http\Controllers\LikeController;
 use App\Http\Controllers\MMRController;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\RankingController;
 use App\Http\Controllers\RecordController;
 use App\Models\Record;
 use Illuminate\Http\Request;
@@ -66,12 +67,22 @@ Route::middleware('auth:sanctum')->group(function () {
     });
 
     //mmr
-    Route::post('/match', [MMRController::class, 'match']);
+    Route::prefix('/match')->group(function () {
+        Route::post('/rank', [MMRController::class, 'rank']);
+        Route::posT('/friendly', [MMRController::class, 'friendly']);
+    });
+
 
     //전적 기록저장, 불러오기
     Route::prefix('/record')->group(function () {
         Route::get('/store', [RecordController::class, 'store'])->name('record.store');
         Route::get('/index/{id}', [RecordController::class, 'index'])->name('record.index');
         Route::get('/myIndex', [RecordController::class, 'myIndex'])->name('record.myIndex');
+    });
+
+    //랭킹조회
+    Route::prefix('/ranking')->group(function () {
+        Route::get('/mmr', [RankingController::class, 'mmr']);
+        Route::post('/track', [RankingController::class, 'track']);
     });
 });
