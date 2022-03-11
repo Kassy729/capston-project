@@ -13,9 +13,9 @@ use Symfony\Component\HttpFoundation\Response;
 
 class AuthController extends Controller
 {
-    public function test()
+    public function test(Request $request)
     {
-        return 1;
+        return $request;
     }
 
     public function register(Request $request)
@@ -39,6 +39,7 @@ class AuthController extends Controller
 
     public function login(Request $request)
     {
+        return $request;
         if (!Auth::attempt($request->only('email', 'password'))) {
             return response([
                 'message' => 'Invalid credentials!'
