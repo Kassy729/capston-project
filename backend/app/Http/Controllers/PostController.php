@@ -56,7 +56,7 @@ class PostController extends Controller
                 'message' => ['혼자하기 기록을 저장했습니다']
             ], 201);
         } else {
-            redirect()->route('record.store', [
+            return redirect()->route('record.store', [
                 'post_id' => $post->id,
                 'win_user_id' => $request->win_user_id,
                 'loss_user_id' => $request->loss_user_id,
