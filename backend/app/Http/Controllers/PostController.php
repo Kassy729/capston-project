@@ -60,6 +60,7 @@ class PostController extends Controller
                 'post_id' => $post->id,
                 'win_user_id' => $request->win_user_id,
                 'loss_user_id' => $request->loss_user_id,
+                'kind' => $request->kind
             ]);
         }
     }

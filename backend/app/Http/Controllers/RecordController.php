@@ -34,22 +34,18 @@ class RecordController extends Controller
             ], 405);
         }
     }
-    //내가 뛴 상대방의 gpsData 즉 post_id가 필요하다 그러기 위해서 어떻게 해야할까??
-    //여기서 알 수 있는 정보는 내가 같이 달린 상대방 user_id밖에 없다
-    //상대방 아이디로 그 사람이 올린 posts를 조회할 수 있다.
-
 
     //내 기록 불러오기
     public function myIndex()
     {
         $id = Auth::user()->getAttribute('id');
-        return Record::orderby('created_at', 'desc')->where('user_id', '=', $id)->paginate(10);
+        return Record::with(['post'])->orderby('created_at', 'desc')->where('user_id', '=', $id)->paginate(10);
     }
 
     //상대 기록 불러오기
     public function index($id)
     {
-        return Record::orderby('created_at', 'desc')->where('user_id', '=', $id)->paginate(10);
+        return Record::with(['post'])->orderby('created_at', 'desc')->where('user_id', '=', $id)->paginate(10);
     }
 
 
@@ -57,6 +53,7 @@ class RecordController extends Controller
     //mmr상승 함수
     protected function mmr_point($request)
     {
+
         $win_user_id = $request->win_user_id;
         // $lose_user_id = $request->lose_user_id;
         $id = Auth::user()->id;
