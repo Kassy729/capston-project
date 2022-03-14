@@ -12,10 +12,8 @@ class Record extends Model
     protected $fillable = [
         "user_id",
         "post_id",
-        "track_id",
         "win_user_id",
         "loss_user_id",
-        "kind"
     ];
 
     public function user()

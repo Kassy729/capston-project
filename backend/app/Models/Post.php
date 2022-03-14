@@ -23,7 +23,8 @@ class Post extends Model
         "range",
         "track_id",
         "gps_id",
-        "mmr"
+        "mmr",
+        "kind"
     ];
 
     public function user()

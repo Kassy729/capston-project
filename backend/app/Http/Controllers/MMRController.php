@@ -53,7 +53,10 @@ class MMRController extends Controller
         $random = array_rand($matching);
         $random_matching = $matching[$random];
 
+
         //이거를 이제 mongoDB에 보내서 요청
+
+        // $random_matching->id;
         return $random_matching->gps_id;
     }
 }

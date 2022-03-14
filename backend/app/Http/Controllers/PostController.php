@@ -27,7 +27,8 @@ class PostController extends Controller
                 'track_id' => 'required',
                 'gps_id' => 'required',
                 'win_user_id' => 'required',
-                'loss_user_id' => 'required'
+                'loss_user_id' => 'required',
+                'kind' => 'required'
             ]
         );
 
@@ -37,6 +38,7 @@ class PostController extends Controller
             ["mmr" => Auth::user()->mmr]
         );
         $post = Post::create($input);
+
 
         if ($request->hasFile("image")) {
             $files = $request->file("images");
@@ -49,14 +51,17 @@ class PostController extends Controller
             }
         }
 
-        return redirect()->route('record.store', [
-            'win_user_id' => $request->win_user_id,
-            'loss_user_id' => $request->loss_user_id,
-            'kind' => $request->kind,
-            'post_id' => $post->id,
-            'track_id' => $post->track_id,
-            'event' => $post->event
-        ]);
+        if ($request->kind == "혼자하기") {
+            return response([
+                'message' => ['혼자하기 기록을 저장했습니다']
+            ], 201);
+        } else {
+            redirect()->route('record.store', [
+                'post_id' => $post->id,
+                'win_user_id' => $request->win_user_id,
+                'loss_user_id' => $request->loss_user_id,
+            ]);
+        }
     }
 
     //팔로우한 사람들 활동 내역 시간별로 보기

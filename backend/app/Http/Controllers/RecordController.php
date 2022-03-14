@@ -13,14 +13,6 @@ class RecordController extends Controller
     //개개인별 기록 저장
     public function store(Request $request)
     {
-        $this->validate(
-            $request,
-            [
-                'win_user_id' => 'required',
-                'loss_user_id' => 'required',
-            ]
-        );
-
         //mmr상승 함수
         if ($request->kind == "랭크") {
             $this->mmr_point($request);
@@ -32,9 +24,19 @@ class RecordController extends Controller
         );
 
         //기록 등록
-        Record::create($input);
-        return "기록성공";
+        if (Record::create($input)) {
+            return response([
+                'message' => ['기록이 저장됐습니다']
+            ], 201);
+        } else {
+            return response([
+                'message' => ['실패했습니다']
+            ], 405);
+        }
     }
+    //내가 뛴 상대방의 gpsData 즉 post_id가 필요하다 그러기 위해서 어떻게 해야할까??
+    //여기서 알 수 있는 정보는 내가 같이 달린 상대방 user_id밖에 없다
+    //상대방 아이디로 그 사람이 올린 posts를 조회할 수 있다.
 
 
     //내 기록 불러오기
