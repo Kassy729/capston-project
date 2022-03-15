@@ -24,10 +24,7 @@ class PostController extends Controller
                 'altitude' => 'required',
                 'distance' => 'required',
                 'range' => 'required',
-                'track_id' => 'required',
                 'gps_id' => 'required',
-                'win_user_id' => 'required',
-                'loss_user_id' => 'required',
                 'kind' => 'required'
             ]
         );
@@ -118,7 +115,9 @@ class PostController extends Controller
             $post->content = $request->content;
             $post->range = $request->range;
             $post->save();
-            return "수정완료";
+            return response([
+                'message' => ['수정 완료']
+            ], 201);
         } else {
             return abort(401);
         }
@@ -132,7 +131,9 @@ class PostController extends Controller
 
         if ($user == $user_id) {
             $post->delete();
-            return "삭제성공";
+            return response([
+                'message' => ['삭제 성공']
+            ], 201);
         } else {
             return abort(401);
         }

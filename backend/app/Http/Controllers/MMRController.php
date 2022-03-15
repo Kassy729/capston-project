@@ -54,8 +54,6 @@ class MMRController extends Controller
         $random_matching = $matching[$random];
 
         $request->request->add(['succ' => 'true']);
-        return redirect('이동값')->withInput();
-
         //이거를 이제 mongoDB에 보내서 요청
 
 
