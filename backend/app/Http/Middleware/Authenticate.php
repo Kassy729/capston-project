@@ -28,7 +28,7 @@ class Authenticate extends Middleware
         } else {
             return response([
                 'message' => '로그인 하고 시도하세요'
-            ], 401);
+            ], 402);
         }
 
         $this->authenticate($request, $guards);
