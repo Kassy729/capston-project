@@ -23,13 +23,13 @@ class Authenticate extends Middleware
 
     public function handle($request, Closure $next, ...$guards)
     {
-        $login_token = $request->cookie('login_token');
-        $request->headers->set('Authorization', 'Bearer ' . $login_token);
-
-        // return response([
-        //     'message' => '로그인 하고 시도하세요'
-        // ], 300);
-
+        if ($login_token = $request->cookie('dongs')) {
+            $request->headers->set('Authorization', 'Bearer ' . $login_token);
+        } else {
+            return response([
+                'message' => '로그인 하고 시도하세요'
+            ], 300);
+        }
 
         $this->authenticate($request, $guards);
 
