@@ -24,7 +24,6 @@ class PostController extends Controller
                 'altitude' => 'required',
                 'distance' => 'required',
                 'range' => 'required',
-                'gps_id' => 'required',
                 'kind' => 'required'
             ]
         );
@@ -32,7 +31,8 @@ class PostController extends Controller
         $input = array_merge(
             $request->all(),
             ["user_id" => Auth::user()->id],
-            ["mmr" => Auth::user()->mmr]
+            ["mmr" => Auth::user()->mmr],
+            ["gps_id" => "11"]
         );
         $post = Post::create($input);
 
