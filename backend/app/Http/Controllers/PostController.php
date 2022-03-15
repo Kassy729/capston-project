@@ -14,7 +14,6 @@ class PostController extends Controller
 {
     public function store(Request $request)
     {
-        return $this->message;
         $this->validate(
             $request,
             [
@@ -90,7 +89,6 @@ class PostController extends Controller
     //내 활동내역 보기
     public function myIndex(Request $request)
     {
-
         $range = $request->range;
         $user = Auth::user()->id;
         if ($range == 'private') {
