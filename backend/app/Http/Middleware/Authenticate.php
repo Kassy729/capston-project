@@ -27,8 +27,8 @@ class Authenticate extends Middleware
             $request->headers->set('Authorization', 'Bearer ' . $jwt);
         } else {
             return response([
-                'message' => '로그인이 안돼있습니다'
-            ]);
+                'message' => '로그인 하고 시도하세요'
+            ], 401);
         }
 
         $this->authenticate($request, $guards);
