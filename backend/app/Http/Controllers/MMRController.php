@@ -18,6 +18,7 @@ class MMRController extends Controller
         return $this->random_match($request);
     }
 
+    //친선전
     public function friendly(Request $request)
     {
         $track_id = $request->track_id;
@@ -53,10 +54,22 @@ class MMRController extends Controller
         $random = array_rand($matching);
         $random_matching = $matching[$random];
 
-        $request->request->add(['succ' => 'true']);
+        $match_user = User::where('id', '=', $random_matching->user_id)->get('name');
+
+
         //이거를 이제 mongoDB에 보내서 요청
+        $match_gps_id = $random_matching->gps_id;
 
 
-        return $random_matching->gps_id;
+        if ($match_user) {
+            return response([
+                'message' => '매칭이 완료 됐습니다',
+                'matching_user' => $match_user
+            ], 201);
+        } else {
+            return response([
+                'message' => ['이 트랙에서 매칭 할 수 있는 유저가 없습니다.']
+            ], 401);
+        }
     }
 }

@@ -25,6 +25,10 @@ class Authenticate extends Middleware
     {
         if ($jwt = $request->cookie('jwt')) {
             $request->headers->set('Authorization', 'Bearer ' . $jwt);
+        } else {
+            return response([
+                'message' => '로그인이 안돼있습니다'
+            ]);
         }
 
         $this->authenticate($request, $guards);

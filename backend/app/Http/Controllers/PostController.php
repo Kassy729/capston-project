@@ -14,6 +14,7 @@ class PostController extends Controller
 {
     public function store(Request $request)
     {
+        return $this->message;
         $this->validate(
             $request,
             [
@@ -28,11 +29,15 @@ class PostController extends Controller
             ]
         );
 
+        //Node에서 GPS_data_id와 track_id를 받아와서
+        //활동에 저장해야함
+
         $input = array_merge(
             $request->all(),
             ["user_id" => Auth::user()->id],
             ["mmr" => Auth::user()->mmr],
-            ["gps_id" => "11"]
+            ["gps_id" => "11"],  //노드에서 받아와야할 정보
+            ["track_id" => "33"] //노드에서 받아와야할 정보
         );
         $post = Post::create($input);
 
@@ -85,6 +90,7 @@ class PostController extends Controller
     //내 활동내역 보기
     public function myIndex(Request $request)
     {
+
         $range = $request->range;
         $user = Auth::user()->id;
         if ($range == 'private') {
