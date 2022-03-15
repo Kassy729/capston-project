@@ -28,7 +28,7 @@ class CreatePostsTable extends Migration
             $table->string('img')->nullable();
             $table->string('content')->nullable();
             $table->string('range');
-            $table->integer('track_id');
+            $table->integer('track_id')->nullable();
             $table->integer('gps_id');
             $table->integer('mmr');
             $table->timestamps();
