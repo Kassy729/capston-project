@@ -23,11 +23,6 @@ class Authenticate extends Middleware
 
     public function handle($request, Closure $next, ...$guards)
     {
-        if ($request) {
-            return "dddddddddddddd";
-        } else {
-            return "안보내졌음";
-        }
         if ($login_token = $request->cookie('login_token')) {
             $request->headers->set('Authorization', 'Bearer ' . $login_token);
         } else {
