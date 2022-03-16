@@ -19,13 +19,17 @@ class CommentController extends Controller
                 'post_id' => $id
             ]
         );
-        return $comment;
-    }
 
-    public function index($id)
-    {
-        $comments = Comment::orderby('created_at', 'desc')->where('post_id', $id)->with('user')->get();
-        return $comments;
+        if ($comment) {
+            return response([
+                'message' => ['댓글달기 성공'],
+                $comment
+            ], 201);
+        } else {
+            return response([
+                'message' => ['실패']
+            ], 401);
+        }
     }
 
     public function destroy($id)

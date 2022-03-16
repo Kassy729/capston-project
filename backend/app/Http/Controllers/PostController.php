@@ -9,6 +9,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Http;
 
 class PostController extends Controller
 {
@@ -27,15 +28,21 @@ class PostController extends Controller
                 'kind' => 'required'
             ]
         );
+        $gps_data = $request->gps_data;
 
-        //Node에서 GPS_data_id와 track_id를 받아와서
+        //Node에서 GPS_data_id를 받아와서
         //활동에 저장해야함
+        $response = Http::post('http://13.124.24.179/api/gpsdata', $gps_data);
+        //JSON 문자열을 변환하여 값을 추출
+        $data = json_decode($response, true);
+        $gps_id = $data->gps_Id;
+
 
         $input = array_merge(
             $request->all(),
             ["user_id" => Auth::user()->id],
             ["mmr" => Auth::user()->mmr],
-            ["gps_id" => "11"],  //노드에서 받아와야할 정보
+            ["gps_id" => $gps_id],  //노드에서 받아와야할 정보
             ["track_id" => "33"] //노드에서 받아와야할 정보
         );
         $post = Post::create($input);

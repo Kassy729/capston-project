@@ -41,7 +41,6 @@ class RecordController extends Controller
     //내 기록 불러오기
     public function myIndex()
     {
-        return Http::get('http://localhost:3002');
         $id = Auth::user()->getAttribute('id');
         return Record::with(['post'])->orderby('created_at', 'desc')->where('user_id', '=', $id)->paginate(10);
     }
