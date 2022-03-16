@@ -36,4 +36,9 @@ class Post extends Model
     {
         return $this->belongsToMany(User::class, 'likes', 'post_id', 'user_id', 'id', 'id', 'users');  //외래키를 적어야 하지만 관례를 따라서 생략 가능
     }
+
+    public function comment()
+    {
+        return $this->hasMany(Comment::class);
+    }
 }
