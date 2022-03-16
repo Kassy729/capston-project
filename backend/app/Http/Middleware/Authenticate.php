@@ -17,16 +17,13 @@ class Authenticate extends Middleware
     {
         //로그인하지않고 무언가를 하려 하면 리다이렉트 시킴
         if (!$request->expectsJson()) {
-            return route('api/login');
+            return route('login');
         }
     }
 
     public function handle($request, Closure $next, ...$guards)
     {
         if ($login_token = $request->cookie('login_token')) {
-            return response([
-                "message" => "ddddddddd"
-            ]);
             $request->headers->set('Authorization', 'Bearer ' . $login_token);
         } else {
             return response([
