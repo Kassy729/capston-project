@@ -23,9 +23,16 @@ class Authenticate extends Middleware
 
     public function handle($request, Closure $next, ...$guards)
     {
-        return response([
-            'tt' => 'qqqqqqqqqqq'
-        ]);
+        if ($request) {
+            return response([
+                'tt' => '555555555'
+            ]);
+        } else {
+            return response([
+                'tt' => '안됨'
+            ]);
+        }
+
         if ($login_token = $request->cookie('login_token')) {
             $request->headers->set('Authorization', 'Bearer ' . $login_token);
         } else {
