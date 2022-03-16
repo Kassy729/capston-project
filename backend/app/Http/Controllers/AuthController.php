@@ -51,9 +51,6 @@ class AuthController extends Controller
 
         $user = User::with(['followings', 'followers', 'posts'])->find($login_user->id);
 
-        return response([
-            'message' => "DDDDDDDDDDDDDD"
-        ]);
 
         return response([
             'login_token' => $login_token,
