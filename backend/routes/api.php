@@ -80,7 +80,6 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::get('/myIndex', [RecordController::class, 'myIndex'])->name('record.myIndex');
         Route::post('/rank', [RecordController::class, 'rank']);
         Route::posT('/friendly', [RecordController::class, 'friendly']);
-        Route::get('/test', [RecordController::class, 'test']);
     });
 
     //랭킹조회
