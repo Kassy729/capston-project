@@ -23,8 +23,8 @@ class Authenticate extends Middleware
 
     public function handle($request, Closure $next, ...$guards)
     {
-        if ($login_token = $request->cookie('login_token')) {
-            $request->headers->set('Authorization', 'Bearer ' . $login_token);
+        if ($jwt = $request->cookie('jwt')) {
+            $request->headers->set('Authorization', 'Bearer ' . $jwt);
         } else {
             return response([
                 'message' => '로그인 하고 시도하세요'

@@ -43,7 +43,7 @@ class AuthController extends Controller
         $login_user = Auth::user();
 
         $jwt = $login_user->createToken('token')->plainTextToken;
-        $cookie = cookie('login_token', $jwt, 60 * 24); // 1 day
+        $cookie = cookie('jwt'); // 1 day
 
 
         $user = User::with(['followings', 'followers', 'posts'])->find($login_user->id);
