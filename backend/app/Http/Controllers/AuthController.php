@@ -29,9 +29,6 @@ class AuthController extends Controller
             'introduce' => $request->input('introduce'),
             'location' => $request->input('location'),
             'mmr' => 0,
-            'win' => 0,
-            'loss' => 0,
-            'percentage' => 0
         ]);
     }
 
@@ -53,9 +50,8 @@ class AuthController extends Controller
 
 
         return response([
-            'login_token' => $login_token,
+            'message' => $login_token,
             'user' => $user,
-            "test" => "dddddddd"
         ])->withCookie($cookie);
     }
 
